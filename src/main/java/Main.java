@@ -30,16 +30,25 @@ public class Main {
         for (int i = 1; i < amount + 1; ++i) {
             System.out.printf("%d racer's name and speed:\n", i);
             String name = scanner.next();
-            short speed;
+            String speed;
+            int intSpeed;
             while (true) {
-                speed = scanner.nextShort();
-                if (0 < speed && speed <= 250) {
+                speed = scanner.next();
+
+                try {
+                    intSpeed = Integer.parseInt(speed);
+                } catch (NumberFormatException e) {
+                    System.out.println("Speed should be a number between 0 and 250\nTry again");
+                    continue;
+                }
+
+                if (0 < intSpeed && intSpeed <= 250) {
                     break;
                 } else {
-                    System.out.println("Speed should be more than 0 and less than 250\nTry again");
+                    System.out.println("Speed should be between 0 and 250\nTry again");
                 }
             }
-            cars[i - 1] = new Car(name, speed);
+            cars[i - 1] = new Car(name, intSpeed);
         }
 
         return cars;
